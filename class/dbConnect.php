@@ -43,7 +43,7 @@
 		 * Get my articles from database 'articles'.
 		 */
 		function GetMyArticles(){
-			$result = $this->_connect->query("Select * FROM `articles`");
+			$result = $this->_connect->query("Select * FROM `article`");
 
 			return $result->fetchAll();
 		}
@@ -52,7 +52,7 @@
 		 * Get my users from database 'users'.
 		 */
 		function GetMyUsers(){
-			$result = $this->_connect->query("Select * FROM `users`");
+			$result = $this->_connect->query("Select * FROM `user`");
 
 			return $result->fetchAll();
 		}
