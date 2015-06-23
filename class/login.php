@@ -7,31 +7,40 @@
         function __construct()
         {
             $this->_co = new dbConnect();
+
         }
 
-        function GetUserPassword()
+        /*
+         *ici le $_GET['password'] passer en index.php sera en valeur de $pass ==> $pass = $_GET['password']
+         * on fera appel à la fonction GetMyPassword dans la class dbConnect.php pour vérifier si le $pass existe dans la base mySQL
+         */
+        function IsUserPasswordIsValid($pass)
         {
 
-            $result = $this->_co->query("Select * FROM `password`");
+            $result = $this->_co->GetMyPassword($pass);
 
-            if ($result['password'] == $_GET['password'] and $_GET['password'] != 'motdepasse') {
-                include('user.php');
-            } else {
-                echo 'WRONG PASSWORD !!!';
-            }
-
-        function GetUserName()
-            {
-
-                $result = $this->_co->query("Select * FROM `name`");
-
-                if ($result['name'] == $_GET['name'] and $_GET['name'] != 'Dajed') {
-                    include('user.php');
-                } else {
-                    echo 'WRONG NAME !!!';
-                }
+            if ($result) {
+                return true;
             }
         }
+
+        /*
+         *ici le $_GET['name'] passer en index.php sera en valeur de $name ==> $name = $_GET['name']
+         * on fera appel à la fonction GetMyUsers dans la class dbConnect.php pour vérifier si le $name existe dans la base mySQL
+         */
+        function IsUserNameIsValid($name)
+        {
+
+            $result = $this->_co->GetMyUsers($name);
+
+            if ($result) {
+                return true;
+            }
+
+        }
+
+
+
     }
 /**
  * Created by PhpStorm.

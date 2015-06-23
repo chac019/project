@@ -51,9 +51,58 @@
 		/*
 		 * Get my users from database 'users'.
 		 */
-		function GetMyUsers(){
-			$result = $this->_connect->query("Select * FROM `user`");
+		function GetMyUsers($name){
+            $request = $this->_connect->query("Select * FROM `user` WHERE name = \"".$name."\"");
 
-			return $result->fetchAll();
+            $result = $request->fetch();
+
+            if ($result['name'] == $name and $name != 'Dajed') {
+                return true;
+            }
 		}
+
+        /*
+         * ici on vérifie dans la table 'user' et dans la colonne 'password' si le $pass correspond à un password existant.
+         * Si OUI on retourne un TRUE
+         */
+        function GetMyPassword($pass){
+
+            $request = $this->_connect->query("Select * FROM `user` WHERE password = \"".$pass."\"");
+
+            $result = $request->fetch();
+
+            if ($result['password'] == $pass and $pass != 'motdepasse') {
+                return true;
+            }
+
+
+        }
+
+        function InsertTableUser($name, $mail, $password)
+        {
+
+            //echo $name, $mail, $password;
+
+            $sql = "INSERT INTO user ( id, name, mail, password)
+                                    VALUES (:id, :name , :mail , :pass )";
+            $req = $this->_connect->prepare($sql);
+
+            $req->execute(array(
+            'id'=> null,
+            'name'=> $name,
+            'mail'=> $mail,
+            'pass'=> $password,
+
+            ));
+
+
+
+            if ($req){
+            return true;
+            }else{
+            return false;
+            }
+        }
+
+
 	}
