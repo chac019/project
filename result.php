@@ -17,7 +17,13 @@ $myCo = new dbConnect();
 	</head>
 <body>
 
+
     <?php
+
+    /*
+    *ici on va inserer les données du formulaire dans la table 'user' lors de l'inscription graçe à la récupération des valeurs
+     * $_GET['name'], $_GET['mail'], $_GET['password']
+    */
 
         if ($myCo->InsertTableUser($_GET['name'], $_GET['mail'], $_GET['password']))
        {
